@@ -57,7 +57,7 @@ const ModalCalendar = () => {
 			...formValues,
 			[target.name]: target.value,
 		});
-		if (target.name === 'titulo') {
+		if (target.name === 'title') {
 			setIsTituloInvalid(false);
 		}
 	};
@@ -71,21 +71,16 @@ const ModalCalendar = () => {
 		}
 		if (title.trim().length < 2) {
 			setIsTituloInvalid(true);
+			return;
 		}
 		if (eventoActivo) {
 			dispatch(eventoUpdate(formValues));
-			console.log(formValues);
 		} else {
 			dispatch(
 				crearNuevoEvento({
-					id: new Date().getTime(),
-					title: title,
-					note: note,
+					...formValues,
 					start: fechaInicial,
 					end: fechaFinal,
-					user: {
-						name: 'code',
-					},
 				})
 			);
 		}

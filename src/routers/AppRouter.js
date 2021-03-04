@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Redirect, Switch } from 'react-router-dom';
 import { verifyTokenAuth } from '../acctions/authAcctions';
 import CalendarView from '../components/calendar/CalendarView';
+import Loading from '../components/ui/Loading';
 import { AuthRouter } from './AuthRouter';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
@@ -15,6 +16,9 @@ const AppRouter = () => {
 		dispatch(verifyTokenAuth());
 	}, [dispatch]);
 
+	if (checking) {
+		return <Loading />;
+	}
 	return (
 		<BrowserRouter>
 			<Switch>

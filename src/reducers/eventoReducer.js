@@ -2,19 +2,7 @@ import moment from 'moment';
 import { tipos } from '../tipos/tipos';
 
 const initialEstado = {
-	eventos: [
-		{
-			id: new Date().getTime(),
-			title: 'Cumpleaños del Jefe',
-			start: moment().toDate(),
-			end: moment().add(2, 'hours').toDate(),
-			bgcolor: '#2f2f2f',
-			user: {
-				uid: 'asdasd',
-				name: 'Code',
-			},
-		},
-	],
+	eventos: [],
 	eventoActivo: null,
 };
 
@@ -41,8 +29,15 @@ const eventoReducer = (eventoEstado = initialEstado, accion) => {
 				eventos: eventoEstado.eventos.filter((event) => event.id !== eventoEstado.eventoActivo.id),
 				eventoActivo: null,
 			};
+		case tipos.eventGetAll:
+			return {
+				...eventoEstado,
+				eventos: [...accion.payload],
+			};
 		case tipos.eventoNull:
 			return { ...eventoEstado, eventoActivo: null };
+		case tipos.eventCleanLogout:
+			return initialEstado;
 		default:
 			return eventoEstado;
 	}

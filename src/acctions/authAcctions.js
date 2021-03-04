@@ -1,6 +1,7 @@
 import swal from 'sweetalert';
 import { fetchConToken, fetchSinToken } from '../helpers/fetchAPI';
 import { tipos } from '../tipos/tipos';
+import { eventoCleanLogout } from './eventosAcctions';
 
 export const authLogin = (correo, contrasenia) => {
 	return async (dispatch) => {
@@ -107,6 +108,7 @@ export const authLogout = () => {
 	return (dispatch) => {
 		localStorage.clear();
 		dispatch(authLogoutAction());
+		dispatch(eventoCleanLogout());
 	};
 };
 

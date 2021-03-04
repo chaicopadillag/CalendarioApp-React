@@ -30,9 +30,10 @@ export const fetchConToken = (endpoint, data, method = 'GET') => {
 		});
 	} else {
 		return fetch(url, {
-			method: method,
+			method,
 			headers: {
 				'Content-type': 'application/json',
+				'x-token': token,
 			},
 			body: JSON.stringify(data),
 		});

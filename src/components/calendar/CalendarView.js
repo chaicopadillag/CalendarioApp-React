@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TopBar from '../ui/TopBar';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { uiAbrirModal } from '../../acctions/modalAcctions';
 import AddNewfab from '../ui/AddNewfab';
 import DeleteEventFab from '../ui/DeleteEventFab';
-import { enventoClear, setEventoActivo } from '../../acctions/eventosAcctions';
+import { cargarTodosEventos, enventoClear, setEventoActivo } from '../../acctions/eventosAcctions';
 moment.locale('es');
 
 const localizer = momentLocalizer(moment);
@@ -18,7 +18,12 @@ const localizer = momentLocalizer(moment);
 const CalendarView = () => {
 	const dispatch = useDispatch();
 	const { eventos, eventoActivo } = useSelector((state) => state.evento);
+	const { authUser } = useSelector((state) => state.auth);
 	const [lastView, setLastView] = useState(localStorage.getItem('lastView') || 'month');
+
+	useEffect(() => {
+		dispatch(cargarTodosEventos());
+	}, [dispatch]);
 
 	const handleSelectSlot = (e) => {
 		dispatch(enventoClear());
@@ -26,7 +31,7 @@ const CalendarView = () => {
 
 	const eventStyleGetter = (event, start, end, isSelected) => {
 		const style = {
-			backgroundColor: '#7b4ca0',
+			backgroundColor: authUser.uid === event.user._id ? '#7b4ca0' : '#465660',
 			borderRadius: '0px',
 			opacity: 0.8,
 			display: 'block',
