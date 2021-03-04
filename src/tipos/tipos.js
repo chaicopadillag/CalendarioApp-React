@@ -7,4 +7,10 @@ export const tipos = {
 	eventoNull: '[eventoNull]',
 	eventoUpdate: '[eventoUpdate]',
 	eventoDelete: '[eventoDelete]',
+	// auth
+	authChekingFinish: '[authChekingFinish]',
+	authLogin: '[authLogin]',
+	authRegister: '[authRegister]',
+	authVerifyToken: '[authVerifyToken]',
+	authLogout: '[authLogout]',
 };
